@@ -42,7 +42,7 @@ def merge(left, right)
 end
 
 sample = Array.new(1000) { rand(1..100) }
-Benchmark.bm do |bm|
+Benchmark.bm(10) do |bm|
   bm.report('bubble_sort') { bubble_sort sample.dup }
   bm.report('quick_sort') { quick_sort sample.dup }
   bm.report('merge_sort') { merge_sort sample.dup }
