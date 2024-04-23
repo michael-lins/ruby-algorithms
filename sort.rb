@@ -1,6 +1,6 @@
 require 'rspec'
 require 'benchmark'
- 
+
 def bubble_sort(array)
   n = array.size
   loop do
@@ -37,7 +37,7 @@ end
 
 def merge(left, right)
   sorted = []
-  sorted << (left.first <= right.first ? left.shift : right.shift) while left.any? && right.any?
+  sorted.append(left.first <= right.first ? left.shift : right.shift) while left.any? && right.any?
   sorted + left + right
 end
 
