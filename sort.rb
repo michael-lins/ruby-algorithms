@@ -22,7 +22,7 @@ def quick_sort(array)
   pivot = array.last
   left, right = array[0...-1].partition { |i| i < pivot }
 
-  return quick_sort(left) + [pivot] + quick_sort(right)
+  quick_sort(left) + [pivot] + quick_sort(right)
 end
 
 def merge_sort(array)
@@ -38,7 +38,7 @@ end
 def merge(left, right)
   sorted = []
   sorted << (left.first <= right.first ? left.shift : right.shift) while left.any? && right.any?
-  sorted.concat(left).concat(right)
+  sorted + left + right
 end
 
 sample = Array.new(1000) { rand(1..100) }
