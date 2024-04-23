@@ -25,10 +25,27 @@ def quick_sort(array)
   return quick_sort(left) + [pivot] + quick_sort(right)
 end
 
+def merge_sort(array)
+  return array if array.length <= 1
+
+  mid = array.length / 2
+  left = merge_sort(array.slice(0, mid))
+  right = merge_sort(array.slice(mid, array.length))
+
+  merge(left, right)
+end
+
+def merge(left, right)
+  sorted = []
+  sorted << (left.first <= right.first ? left.shift : right.shift) while left.any? && right.any?
+  sorted.concat(left).concat(right)
+end
+
 sample = Array.new(1000) { rand(1..100) }
 Benchmark.bm do |bm|
-  bm.report("bubble_sort") { bubble_sort sample.dup }
-  bm.report("quick_sort") { quick_sort sample.dup }
+  bm.report('bubble_sort') { bubble_sort sample.dup }
+  bm.report('quick_sort') { quick_sort sample.dup }
+  bm.report('merge_sort') { merge_sort sample.dup }
 end
 
 context 'Sorting algorithms' do
@@ -41,6 +58,11 @@ context 'Sorting algorithms' do
 
   describe 'quick_sort' do
     subject { quick_sort array }
+    it { is_expected.to eq array.sort }
+  end
+
+  describe 'merge_sort' do
+    subject { merge_sort array }
     it { is_expected.to eq array.sort }
   end
 end
